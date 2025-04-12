@@ -13,24 +13,6 @@ import com.example.todo_list.data.TaskRepository;
 
 public class CalendarViewModel extends AndroidViewModel {
 
-    /*
-    private final MutableLiveData<String> mText;
-    private TaskRepository repository;
-    public CalendarViewModel(Application application) {
-        mText = new MutableLiveData<>();
-        //mText.setValue("This is calendar fragment");
-        repository = new TaskRepository(application);
-    }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
-
-    public void insert(Task task) {
-        repository.insert(task);
-    }
-
-     */
 
     private TaskRepository repository;
 
