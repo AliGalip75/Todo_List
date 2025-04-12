@@ -13,15 +13,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    public Button buton;
     public HomeViewModel homeViewModel;
     private RecyclerView recyclerView;
-    private TaskAdapter taskAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -35,10 +34,15 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         recyclerView = binding.recylerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        TaskAdapter adapter = new TaskAdapter();
+
+        TaskAdapter adapter = new TaskAdapter(new TaskAdapter.OnTaskDeleteClickListener() {
+            @Override
+            public void onTaskDelete(Task task) {
+                homeViewModel.deleteTask(task);
+            }
+        });
         recyclerView.setAdapter(adapter);
         homeViewModel.getAllTasks().observe(getViewLifecycleOwner(), adapter::setTasks);
 

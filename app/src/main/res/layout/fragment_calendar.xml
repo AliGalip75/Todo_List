@@ -46,19 +46,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30dp"
         />
-
-
-    <EditText
-        android:id="@+id/editTextTask"
-        android:layout_width="match_parent"
+    <!--Klavye üstü editText-->
+    <RelativeLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:hint="Enter a todo"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarView"
-        app:layout_constraintBottom_toTopOf="@id/text_calendar"
-        android:layout_margin="40dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/newTaskEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="New Task"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Enter"
+            app:cornerRadius="16dp"
+            android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

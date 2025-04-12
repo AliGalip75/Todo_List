@@ -33,8 +33,9 @@ public class ProfileFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        TextView textView = binding.textProfile;
 
+        //textView'ı dinle ve değiştiğinde UI'ı da bilgilendir
+        TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
     }
 

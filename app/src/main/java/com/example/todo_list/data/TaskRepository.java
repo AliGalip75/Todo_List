@@ -8,17 +8,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class TaskRepository {
-    private TaskDao taskDao;
-    private LiveData<List<Task>> allTasks;
+    private final TaskDao taskDao;
 
     public TaskRepository(Application application) {
         TaskDatabase database = TaskDatabase.getInstance(application);
         taskDao = database.taskDao();
-        allTasks = taskDao.getAllTasks();
     }
 
     public void insert(Task task) {
@@ -28,7 +25,11 @@ public class TaskRepository {
     }
 
     public LiveData<List<Task>> getAllTasks() {
-        return allTasks;
+        return taskDao.getAllTasks();
+    }
+
+    public void deleteTask(Task task){
+        TaskDatabase.databaseWriteExecutor.execute(() -> taskDao.delete(task));
     }
 
 }

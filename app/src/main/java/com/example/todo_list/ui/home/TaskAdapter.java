@@ -21,6 +21,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     //recyclerview'ın göstereceği veriler burada tutulur
     private List<Task> tasks = new ArrayList<>();
 
+    public interface OnTaskDeleteClickListener {
+        void onTaskDelete(Task task);
+    }
+
+    private final OnTaskDeleteClickListener deleteListener;
+
+    public TaskAdapter(OnTaskDeleteClickListener deleteListener) {
+        this.deleteListener = deleteListener;
+    }
+
 
     // Viewholder tek bir satırı temsil ediyor
     public static class TaskHolder extends RecyclerView.ViewHolder {
@@ -52,6 +62,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 Toast.makeText(holder.binding.getRoot().getContext(), "seçilen card: " + current.getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.binding.garbageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteListener.onTaskDelete(current);
+            }
+        });
     }
 
     @Override
@@ -62,7 +79,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); // liste değişince UI'ı güncelle
     }
 
 
