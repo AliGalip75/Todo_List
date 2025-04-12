@@ -1,27 +1,17 @@
 package com.example.todo_list.ui.calendar;
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
-import android.content.Context;
-import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.todo_list.R;
-import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.FragmentCalendarBinding;
 
 public class CalendarFragment extends Fragment {
