@@ -15,30 +15,6 @@ import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    /*
-    private final MutableLiveData<String> mText;
-
-    private TaskRepository repository;
-    private LiveData<List<Task>> allTasks;
-
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment :))");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
-
-    public void changeText(String newText) {
-        mText.setValue(newText);
-    }
-
-    public LiveData<List<Task>> getAllTasks() {
-        return allTasks;
-    }
-
-     */
 
     private TaskRepository repository;
     private LiveData<List<Task>> allTasks;

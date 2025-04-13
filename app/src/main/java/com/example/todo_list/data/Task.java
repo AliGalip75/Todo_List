@@ -7,13 +7,14 @@ import androidx.room.PrimaryKey;
 public class Task {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String title;
     private String date;
+    private Boolean isDone;
 
-    public Task(String title, String date) {
+    public Task(String title, String date, Boolean isDone) {
         this.title = title;
         this.date = date;
+        this.isDone = isDone;
     }
 
     public int getId() {
@@ -40,6 +41,12 @@ public class Task {
         this.date = date;
     }
 
+    public Boolean getDone() {
+        return isDone;
+    }
 
+    public void setDone(Boolean done) {
+        isDone = done;
+    }
 }
 

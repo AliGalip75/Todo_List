@@ -3,8 +3,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="@android:color/white"
+    android:padding="25dp"
     android:gravity="center">
 
     <EditText
@@ -13,7 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Enter Todo"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:overScrollMode="always"
+        android:gravity="top|start" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addTaskButton"
