@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.BottomSheetLayoutBinding;
+import com.example.todo_list.ui.home.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.CornerFamily;
@@ -29,7 +30,6 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
 
     private BottomSheetLayoutBinding binding;
     private CalendarViewModel calendarViewModel;
-
 
     public TaskBottomSheetFragment(CalendarViewModel calendarViewModel){
         this.calendarViewModel = calendarViewModel;
@@ -51,10 +51,7 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
 
         BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
         if (dialog != null) {
-            // Soft input mode'u resize olarak ayarla
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-            // Diğer işlemler (eğer gerekiyorsa)
             View rootView = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
             if (rootView != null) {
                 // Window insets listener
@@ -78,7 +75,7 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
         // Kaydet butonuna tıklanabilirlik
         binding.addTaskButton.setOnClickListener(v -> {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            String selectedDate = sharedPreferences.getString("selectedDate", "Tarih seçilmedi");
+            String selectedDate = sharedPreferences.getString("selectedDate", "");
             String title = binding.newTaskEdit.getText().toString().trim();
             if (!title.isEmpty()) {
                 Task task = new Task(title, selectedDate, false);

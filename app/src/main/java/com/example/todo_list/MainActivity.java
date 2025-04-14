@@ -1,11 +1,7 @@
 package com.example.todo_list;
 
-import static android.app.PendingIntent.getActivity;
-
 import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;

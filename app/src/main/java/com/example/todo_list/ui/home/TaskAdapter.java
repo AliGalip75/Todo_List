@@ -25,11 +25,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         void onTaskDelete(Task task);
     }
 
+    public interface OnTaskEditClickListener {
+        void onTaskEdit(Task task);
+    }
+
     private final OnTaskDeleteClickListener deleteListener;
 
-    public TaskAdapter(OnTaskDeleteClickListener deleteListener) {
+    private final OnTaskEditClickListener editListener;
+
+    public TaskAdapter(OnTaskDeleteClickListener deleteListener, OnTaskEditClickListener editListener) {
         this.deleteListener = deleteListener;
+        this.editListener = editListener;
     }
+
 
 
     // Viewholder tek bir satırı temsil ediyor
@@ -63,12 +71,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
         });
 
+        // recyclerView todolardaki silme butonu için listener
         holder.binding.garbageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deleteListener.onTaskDelete(current);
             }
         });
+
+        holder.binding.editBtn.setOnClickListener(v -> {
+            editListener.onTaskEdit(current);
+        });
+
+
     }
 
     @Override
