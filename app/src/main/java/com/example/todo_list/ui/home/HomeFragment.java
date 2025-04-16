@@ -32,23 +32,24 @@ public class HomeFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class); //homeViewModel'ı bağla
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = binding.recylerView;
-        LinearLayout emptyView = binding.emptyView;
-        TextView homeText = binding.homeText;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayout emptyView = binding.emptyView; // görev kalmayınca görünecek layout
+        TextView homeText = binding.homeText; // TODOS text
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); // recyclerView'ı dikey olarak ayarladık
 
-        TaskAdapter adapter = new TaskAdapter(
+        TaskAdapter adapter = new TaskAdapter( //adapter'ın içine silme ve güncelleme fonksiyonlarını gömdük
                 task -> homeViewModel.deleteTask(task),
                 task -> showUpdateDialog(requireContext(), task, homeViewModel)
         );
 
         recyclerView.setAdapter(adapter);
+        // todoListesini dinler ve değişiklik olursa dinamik olarak sürekli çalışır. Okun solundaki "tasks" değişen verinin son halini tutar
         homeViewModel.getAllTasks().observe(getViewLifecycleOwner(), tasks -> {
             adapter.setTasks(tasks);
 
@@ -67,10 +68,11 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                               ViewGroup container, Bundle savedInstanceState){
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false); // Binding'i bağla
         return binding.getRoot();
     }
 
+    // Update işlemi için metod
     private void showUpdateDialog(Context context, Task taskToUpdate, HomeViewModel homeViewModel) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_update_task, null);
@@ -82,16 +84,16 @@ public class HomeFragment extends Fragment {
         builder.setTitle("Update Task");
         builder.setView(dialogView);
 
-        builder.setPositiveButton("Kaydet", (dialog, which) -> {
+        builder.setPositiveButton("Save", (dialog, which) -> {
             String updatedText = editText.getText().toString().trim();
             if (!updatedText.isEmpty()) {
                 taskToUpdate.setTitle(updatedText);
                 homeViewModel.updateTask(taskToUpdate);
-                Toast.makeText(context, "Görev güncellendi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Todo Updated", Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("İptal", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_corner);

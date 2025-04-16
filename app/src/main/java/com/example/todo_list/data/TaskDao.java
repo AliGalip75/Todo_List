@@ -6,12 +6,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import java.util.List;
-
-// sql yazmadan veritabanı işlemlerini buradan yapıyoruz(bazı işlemler için sql yazmak gerekebiliyor)
 @Dao
-public interface TaskDao {
+public interface TaskDao { // sql yazmadan veritabanı işlemlerini buradan yapıyoruz(bazı işlemler için sql yazmak gerekebiliyor)
     @Delete
     void delete(Task task);
 

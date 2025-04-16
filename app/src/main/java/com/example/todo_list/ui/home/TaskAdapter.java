@@ -5,27 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.todo_list.R;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
-    //recyclerview'ın göstereceği veriler burada tutulur
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();  // Recyclerview'ın göstereceği veriler burada tutulur
 
-    public interface OnTaskDeleteClickListener {
+    public interface OnTaskDeleteClickListener { // Delete işlemi için kendi listener interface'imiz
         void onTaskDelete(Task task);
     }
 
-    public interface OnTaskEditClickListener {
+    public interface OnTaskEditClickListener { // Update işlemi için kendi listener interface'imiz
         void onTaskEdit(Task task);
     }
 
@@ -37,8 +32,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         this.deleteListener = deleteListener;
         this.editListener = editListener;
     }
-
-
 
     // Viewholder tek bir satırı temsil ediyor
     public static class TaskHolder extends RecyclerView.ViewHolder {
@@ -71,7 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
         });
 
-        // recyclerView todolardaki silme butonu için listener
+        // RecyclerView'daki todoların silme butonu için listener
         holder.binding.garbageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +72,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
         });
 
+        // RecyclerView'daki todoların update butonu için listener
         holder.binding.editBtn.setOnClickListener(v -> {
             editListener.onTaskEdit(current);
         });
-
 
     }
 
@@ -96,7 +89,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         this.tasks = tasks;
         notifyDataSetChanged(); // liste değişince UI'ı güncelle
     }
-
 
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- AlertDialog için style -->
 <resources>
     <style name="CustomAlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
-        <!-- İsteğe bağlı renk ayarları -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/primary_variant</item>
     </style>

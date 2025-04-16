@@ -1,20 +1,14 @@
 package com.example.todo_list.ui.home;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.example.todo_list.data.Task;
 import com.example.todo_list.data.TaskRepository;
-
 import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
-
 
     private TaskRepository repository;
     private LiveData<List<Task>> allTasks;
@@ -25,6 +19,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Task>> getAllTasks() {
+        allTasks = repository.getAllTasks();
         return allTasks;
     }
 
