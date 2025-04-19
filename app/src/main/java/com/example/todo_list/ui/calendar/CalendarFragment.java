@@ -8,15 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.todo_list.databinding.FragmentCalendarBinding;
-
 import java.util.Calendar;
 
 public class CalendarFragment extends Fragment {
@@ -77,7 +73,7 @@ public class CalendarFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView() { // Memory leak'i önlemek için
         super.onDestroyView();
         binding = null;
     }

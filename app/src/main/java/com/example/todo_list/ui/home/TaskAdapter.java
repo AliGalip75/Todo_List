@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
@@ -24,13 +25,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         void onTaskEdit(Task task);
     }
 
+    public interface OnTaskCheckedChangeListener {
+        void onTaskCheckChanged(Task task, boolean isChecked);
+    }
+
     private final OnTaskDeleteClickListener deleteListener;
 
     private final OnTaskEditClickListener editListener;
 
-    public TaskAdapter(OnTaskDeleteClickListener deleteListener, OnTaskEditClickListener editListener) {
+    private final OnTaskCheckedChangeListener checkboxListener;
+
+    public TaskAdapter(OnTaskDeleteClickListener deleteListener, OnTaskEditClickListener editListener, OnTaskCheckedChangeListener checkboxListener) {
         this.deleteListener = deleteListener;
         this.editListener = editListener;
+        this.checkboxListener = checkboxListener;
     }
 
     // Viewholder tek bir satırı temsil ediyor
@@ -56,6 +64,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         Task current = tasks.get(position);
         holder.binding.textViewTitle.setText(current.getTitle());
         holder.binding.textViewDate.setText(current.getDate());
+
+        holder.binding.isDone.setOnCheckedChangeListener(null);
+        holder.binding.isDone.setChecked(current.getDone());
+        holder.binding.isDone.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            checkboxListener.onTaskCheckChanged(current, isChecked);
+        });
 
         holder.binding.card.setOnClickListener(new View.OnClickListener() {
             @Override

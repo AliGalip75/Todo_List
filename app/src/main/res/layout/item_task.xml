@@ -60,7 +60,7 @@
             />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/isDone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"

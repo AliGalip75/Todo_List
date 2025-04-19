@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Task.class}, version = 2, exportSchema = false)
 public abstract class TaskDatabase extends RoomDatabase {
-    private static TaskDatabase INSTANCE;
+    private static volatile TaskDatabase INSTANCE;
 
     // insert, delete, getAllTasks gibi DAO fonksiyonlarına buradan erişilir.
     public abstract TaskDao taskDao();
