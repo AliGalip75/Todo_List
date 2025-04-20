@@ -20,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_list.R;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.FragmentHomeBinding;
+import com.example.todo_list.ui.profile.ProfileHelper;
 import com.example.todo_list.ui.profile.ProfileViewModel;
+
+import java.time.LocalDate;
 
 public class HomeFragment extends Fragment {
 
@@ -44,24 +47,34 @@ public class HomeFragment extends Fragment {
         TextView homeText = binding.homeText; // TODOS text
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext())); // recyclerView'ı dikey olarak ayarladık
 
-        TaskAdapter adapter = new TaskAdapter( //adapter'ın içine fonksiyonları gömdük
+        // Haftanın gününü al (0=Pazartesi, 6=Pazar)
+        int currentDayOfWeek = LocalDate.now().getDayOfWeek().getValue() - 1; // Java'da Pazartesi=1, Pazar=7
+        if (currentDayOfWeek < 0) currentDayOfWeek = 6; // Pazar için düzeltme
+
+        int finalCurrentDayOfWeek = currentDayOfWeek;
+        TaskAdapter adapter = new TaskAdapter(
                 task -> {
-                    // Silme işleminde eğer görev tamamlanmamışsa, profileViewModel.increment() çalışacak
                     if (!task.getDone()) {
-                        profileViewModel.increment(requireContext());
-                    }
-                    homeViewModel.deleteTask(task); // Delete işlemi
-                }, // Delete
-                task -> showUpdateDialog(requireContext(), task, homeViewModel), // Update
-                (task, isChecked) -> { // Checkbox
+                        profileViewModel.incrementDay(requireContext(), finalCurrentDayOfWeek); // silinen task tiksiz ise hem o gün için tamamlanan görevsayısını
+                    }                                                                           // hem de haftalık toplam tamamlann görev sayısını bir artır.
+                    homeViewModel.deleteTask(task);
+                },
+
+                task -> showUpdateDialog(requireContext(), task, homeViewModel),
+
+                (task, isChecked) -> {
                     task.setDone(isChecked);
                     homeViewModel.updateTask(task);
 
-                    // Checkbox tıklanınca profile sayfasında count bir artar veya azalır
                     if (isChecked) {
-                        profileViewModel.increment(requireContext()); // Tamamlanan görev sayısını artır
+                        profileViewModel.incrementDay(requireContext(), finalCurrentDayOfWeek);
                     } else {
-                        profileViewModel.decrement(requireContext()); // Tamamlanmayan görev sayısını azalt
+                        int dayCount = ProfileHelper.getCompletedCountForDay(requireContext(), finalCurrentDayOfWeek);
+                        if (dayCount > 0) {
+                            ProfileHelper.setCompletedCountForDay(requireContext(), finalCurrentDayOfWeek, dayCount - 1);
+                            ProfileHelper.setCompletedCount(requireContext(), ProfileHelper.getCompletedCount(requireContext()) - 1);
+                        }
+                        profileViewModel.loadData();
                     }
                 }
         );
