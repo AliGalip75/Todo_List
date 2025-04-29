@@ -13,7 +13,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.60"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
         <TextView
         android:id="@+id/text_calendar"
@@ -23,6 +24,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
+        android:textColor="?attr/colorOnBackground"
         android:text="Click on the '+' to add a todo"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -42,10 +44,11 @@
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="25dp"
         android:contentDescription="TodoAdd"
+        app:backgroundTint="?attr/colorSecondary"
+        app:tint="?attr/colorOnSecondary"
         android:src="@drawable/add_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30dp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>

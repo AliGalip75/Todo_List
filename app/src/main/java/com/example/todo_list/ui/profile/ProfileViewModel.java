@@ -1,12 +1,10 @@
 package com.example.todo_list.ui.profile;
+
 import android.app.Application;
 import android.content.Context;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.example.todo_list.ui.profile.ProfileHelper;
 
 public class ProfileViewModel extends AndroidViewModel {
 
@@ -47,5 +45,4 @@ public class ProfileViewModel extends AndroidViewModel {
         ProfileHelper.incrementCompletedCountForDay(context, dayOfWeek);
         loadData();
     }
-
 }

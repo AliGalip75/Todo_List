@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         app:cornerRadius="20dp"
         android:text="Save"
-        android:background="@android:color/transparent"
-        android:textColor="?attr/colorOnPrimary"/>
+        android:backgroundTint="@android:color/transparent"
+        android:textColor="?attr/colorOnBackground"/>
 </LinearLayout>

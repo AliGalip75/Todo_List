@@ -8,7 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
 @Dao
-public interface TaskDao { // sql yazmadan veritabanı işlemlerini buradan yapıyoruz(bazı işlemler için sql yazmak gerekebiliyor)
+public interface TaskDao { // sql yazmadan veritabanı işlemlerini buradan yapıyoruz(bazı işlemler için sql yazmak gerekebilir)
     @Delete
     void delete(Task task);
 

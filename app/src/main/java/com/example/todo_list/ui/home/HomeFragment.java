@@ -22,7 +22,6 @@ import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.FragmentHomeBinding;
 import com.example.todo_list.ui.profile.ProfileHelper;
 import com.example.todo_list.ui.profile.ProfileViewModel;
-
 import java.time.LocalDate;
 
 public class HomeFragment extends Fragment {
@@ -130,10 +129,10 @@ public class HomeFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_corner);
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(ContextCompat.getColor(context, R.color.primary));  // Tema rengini kullan
+                .setTextColor(ContextCompat.getColor(context, R.color.on_background));  // Tema rengini kullan
 
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(ContextCompat.getColor(context, R.color.unselected));
+                .setTextColor(ContextCompat.getColor(context, R.color.gray));
     }
 
     @Override

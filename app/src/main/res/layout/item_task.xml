@@ -16,6 +16,14 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <CheckBox
+            android:id="@+id/isDone"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:buttonTint="?attr/colorSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
@@ -58,13 +66,6 @@
             app:srcCompat="@drawable/edit"
             android:background="@color/white"
             />
-
-        <CheckBox
-            android:id="@+id/isDone"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -19,7 +19,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.BottomSheetLayoutBinding;
-import com.example.todo_list.ui.home.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.shape.CornerFamily;

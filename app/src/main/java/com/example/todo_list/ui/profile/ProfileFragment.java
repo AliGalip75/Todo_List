@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.todo_list.R;
 import com.example.todo_list.databinding.FragmentProfileBinding;
 import com.example.todo_list.ui.home.HomeViewModel;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -43,6 +44,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
+        ProfileHelper.resetIfNeeded(requireContext());
+
         profileViewModel.loadData();
         profileViewModel.getCompletedCount().observe(getViewLifecycleOwner(), count -> {
             binding.textCompleted.setText(count + "");
@@ -62,8 +65,18 @@ public class ProfileFragment extends Fragment {
         entries.add(new BarEntry(6, ProfileHelper.getCompletedCountForDay(requireContext(), 6))); // Pazar
 
         BarDataSet dataSet = new BarDataSet(entries, "Completed Tasks");
-        dataSet.setColor(ContextCompat.getColor(requireContext(), R.color.primary));
+        dataSet.setColor(ContextCompat.getColor(requireContext(), R.color.on_secondary));
         dataSet.setDrawValues(false); // Bu satırla sütunların üstündeki değerleri kaldırıyoruz
+
+        // Yatayda ve dikeyde etiket konumunu ayarlıyoruz
+        dataSet.setValueTextSize(12f); // Etiketin yazı boyutunu ayarlayabilirsin
+        dataSet.setValueTextColor(ContextCompat.getColor(requireContext(), R.color.on_background)); // Etiketin rengini ayarla
+
+        // Başlık yazısının pozisyonunu ayarlamak için
+        binding.barChart.getLegend().setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);  // Başlık aşağıda olsun
+        binding.barChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT); // Başlık solda
+        binding.barChart.getLegend().setOrientation(Legend.LegendOrientation.HORIZONTAL); // Başlık yatay olarak yerleştirilsin
+        binding.barChart.getLegend().setDrawInside(false); // Başlık grafiğin içinde olmasın
 
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.5f);

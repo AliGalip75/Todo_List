@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
     private List<Task> tasks = new ArrayList<>();  // Recyclerview'ın göstereceği veriler burada tutulur
+
+    private final OnTaskDeleteClickListener deleteListener;
+
+    private final OnTaskEditClickListener editListener;
+
+    private final OnTaskCheckedChangeListener checkboxListener;
 
     public interface OnTaskDeleteClickListener { // Delete işlemi için kendi listener interface'imiz
         void onTaskDelete(Task task);
@@ -28,12 +33,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public interface OnTaskCheckedChangeListener {
         void onTaskCheckChanged(Task task, boolean isChecked);
     }
-
-    private final OnTaskDeleteClickListener deleteListener;
-
-    private final OnTaskEditClickListener editListener;
-
-    private final OnTaskCheckedChangeListener checkboxListener;
 
     public TaskAdapter(OnTaskDeleteClickListener deleteListener, OnTaskEditClickListener editListener, OnTaskCheckedChangeListener checkboxListener) {
         this.deleteListener = deleteListener;

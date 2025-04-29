@@ -1,12 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Theme.Todo_List" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
 
-        <item name="colorSecondary">@color/purple_700</item>
+        <item name="android:colorBackground">@color/background</item>
+
+        <item name="colorSecondary">@color/black</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
 
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/purple_700</item>
@@ -15,6 +13,8 @@
 
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/white</item>
+
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="android:statusBarColor">@color/white</item>
     </style>
 </resources>
