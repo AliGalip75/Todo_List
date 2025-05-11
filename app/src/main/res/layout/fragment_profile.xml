@@ -18,7 +18,8 @@
         android:layout_columnSpan="2"
         android:text="Statistics"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:fontFamily="@font/quicksand_variable_font_wght"/>
 
     <!-- 1. Kart -->
     <androidx.cardview.widget.CardView
@@ -45,7 +46,8 @@
                 android:text="Completed Tasks"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_variable_font_wght"/>
             <TextView
                 android:id="@+id/textCompleted"
                 android:layout_width="match_parent"
@@ -55,7 +57,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
-                android:textSize="25sp"/>
+                android:textSize="30sp"
+                android:fontFamily="@font/quicksand_variable_font_wght"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -84,7 +88,8 @@
                 android:text="Pending Tasks"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_variable_font_wght"/>
             <TextView
                 android:id="@+id/textPending"
                 android:layout_width="match_parent"
@@ -94,7 +99,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
-                android:textSize="25sp"/>
+                android:textSize="30sp"
+                android:fontFamily="@font/quicksand_variable_font_wght"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,6 +130,7 @@
                 android:text="Weekly task completion statistics"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/quicksand_variable_font_wght"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

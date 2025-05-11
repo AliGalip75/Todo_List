@@ -31,46 +31,51 @@ android:layout_height="wrap_content">
             android:layout_marginStart="8dp"/>
     </LinearLayout>
 
-    <!-- 2. satır: Öncelik -->
+    <!-- Priority -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Öncelik"
+            android:text="Priority"
+            android:gravity="start"
             android:layout_marginEnd="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerPriority"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:popupBackground="@drawable/spinner_dropdown_background"/>
     </LinearLayout>
 
-    <!-- 3. satır: Kategori -->
+    <!-- Category -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Kategori"
+            android:text="Category"
+            android:gravity="start"
             android:layout_marginEnd="8dp"/>
 
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:popupBackground="@drawable/spinner_dropdown_background"/>
     </LinearLayout>
+
 
 </LinearLayout>

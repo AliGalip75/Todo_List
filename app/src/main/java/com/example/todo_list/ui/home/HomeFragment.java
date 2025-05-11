@@ -2,17 +2,21 @@ package com.example.todo_list.ui.home;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +26,8 @@ import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.FragmentHomeBinding;
 import com.example.todo_list.ui.profile.ProfileHelper;
 import com.example.todo_list.ui.profile.ProfileViewModel;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.time.LocalDate;
 
 public class HomeFragment extends Fragment {
@@ -119,7 +125,37 @@ public class HomeFragment extends Fragment {
             if (!updatedText.isEmpty()) {
                 taskToUpdate.setTitle(updatedText);
                 homeViewModel.updateTask(taskToUpdate);
-                Toast.makeText(context, "Todo Updated", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(binding.getRoot(), "Todo Updated", Snackbar.LENGTH_SHORT);
+                View snackbarView = snackbar.getView();
+                snackbar.setTextColor(Color.WHITE);
+
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextSize(20); // sp cinsinden
+                textView.setTypeface(ResourcesCompat.getFont(context, R.font.quicksand_variable_font_wght));
+
+                // Yazı kadar genişlik ve ortalama için:
+                ViewGroup.LayoutParams params = snackbarView.getLayoutParams();
+                if (params instanceof FrameLayout.LayoutParams) {
+                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) params;
+
+                    // Konum: alt-orta
+                    layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+
+                    // Genişliği WRAP_CONTENT yap
+                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                    snackbarView.setLayoutParams(layoutParams);
+                }
+
+                // Kenarlardan biraz boşluk olsun diye padding ver
+                snackbarView.setPadding(24, 16, 24, 16);
+
+                // İsteğe bağlı: köşe yumuşatma
+                snackbarView.setBackground(
+                        ContextCompat.getDrawable(binding.getRoot().getContext(), R.drawable.bg_snackbar_rounded)
+                );
+
+                snackbar.show();
             }
         });
 

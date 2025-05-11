@@ -28,7 +28,7 @@ public class Task {
         this.title = title;
         this.date = date;
         this.isDone = isDone;
-        this.priority = Priority.MEDIUM;
+        this.priority = Priority.Medium;
         this.category = "General";
     }
 

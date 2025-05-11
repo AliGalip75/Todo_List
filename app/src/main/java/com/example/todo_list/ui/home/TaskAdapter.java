@@ -1,21 +1,27 @@
 package com.example.todo_list.ui.home;
 
-import static com.example.todo_list.data.Priority.HIGH;
-
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo_list.R;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,41 +83,69 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             checkboxListener.onTaskCheckChanged(current, isChecked);
         });
 
-        holder.binding.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(holder.binding.getRoot().getContext(), "seçilen card: " + current.getTitle(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
         // RecyclerView'daki todoların silme butonu için listener
         holder.binding.garbageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deleteListener.onTaskDelete(current);
+                Snackbar snackbar = Snackbar.make(holder.binding.getRoot(), "Todo Deleted", Snackbar.LENGTH_SHORT);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(ContextCompat.getColor(holder.binding.getRoot().getContext(), R.color.snackbar));
+
+                snackbar.setTextColor(Color.WHITE);
+                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextSize(20); // sp cinsinden
+                textView.setTypeface(ResourcesCompat.getFont(holder.binding.getRoot().getContext(), R.font.quicksand_variable_font_wght));
+
+                // Yazı kadar genişlik ve ortalama için:
+                ViewGroup.LayoutParams params = snackbarView.getLayoutParams();
+                if (params instanceof FrameLayout.LayoutParams) {
+                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) params;
+
+                    // Konum: alt-orta
+                    layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+
+                    // Genişliği WRAP_CONTENT yap
+                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+                    snackbarView.setLayoutParams(layoutParams);
+                }
+
+                // Kenarlardan biraz boşluk olsun diye padding ver
+                snackbarView.setPadding(24, 16, 24, 16);
+
+                // İsteğe bağlı: köşe yumuşatma
+                snackbarView.setBackground(
+                        ContextCompat.getDrawable(holder.binding.getRoot().getContext(), R.drawable.bg_snackbar_rounded)
+                );
+
+                snackbar.show();
             }
         });
+
 
         // RecyclerView'daki todoların update butonu için listener
         holder.binding.editBtn.setOnClickListener(v -> {
             editListener.onTaskEdit(current);
         });
 
-        // Önceliğe göre renk seç
-        @ColorInt int color;
+        Chip chip = holder.binding.chipPriority;
+
         switch (current.getPriority()) {
-            case HIGH:
-                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.error);
+            case High:
+                chip.setText("HIGH");
+                chip.setChipBackgroundColorResource(R.color.high); // tanımlıysa
                 break;
-            case MEDIUM:
-                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.medium);
+            case Medium:
+                chip.setText("MEDIUM");
+                chip.setChipBackgroundColorResource(R.color.medium);
                 break;
-            default:
-                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.low);
+            case Low:
+                chip.setText("LOW");
+                chip.setChipBackgroundColorResource(R.color.low);
                 break;
         }
         // Dik şeridin arka plan rengini ayarla
-        holder.binding.viewPriority.setBackgroundColor(color);
         holder.binding.textViewCategory.setText(current.getCategory());
 
     }

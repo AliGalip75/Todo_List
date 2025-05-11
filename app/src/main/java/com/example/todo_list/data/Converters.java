@@ -6,7 +6,7 @@ import androidx.room.TypeConverter;
 public class Converters {
     @TypeConverter
     public static String fromPriority(Priority priority) {
-        return priority == null ? Priority.MEDIUM.name() : priority.name();
+        return priority == null ? Priority.Medium.name() : priority.name();
     }
 
     @TypeConverter
@@ -14,7 +14,7 @@ public class Converters {
         try {
             return Priority.valueOf(value);
         } catch (Exception e) {
-            return Priority.MEDIUM;
+            return Priority.Medium;
         }
     }
 }

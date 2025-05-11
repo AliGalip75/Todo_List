@@ -13,6 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.todo_list.databinding.FragmentCalendarBinding;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class CalendarFragment extends Fragment {
@@ -59,13 +62,17 @@ public class CalendarFragment extends Fragment {
         binding.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                // Tarihi String formatına çevir
-                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                // CalendarView'da month 0-indexli (Ocak = 0), bu yüzden +1
+                LocalDate selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+
+                // yyyy-MM-dd formatına çevir
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String formattedDate = selectedDate.format(formatter); // Örn: "2025-05-12"
 
                 // SharedPreferences'a kaydet
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("selectedDate", selectedDate);
+                editor.putString("selectedDate", formattedDate);
                 editor.apply();
             }
         });

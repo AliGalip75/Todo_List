@@ -14,18 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:padding="16dp">
-
-        <!-- 1) Soldaki öncelik göstergesi -->
-        <View
-            android:id="@+id/viewPriority"
-            android:layout_width="5dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="3dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/isDone"/>
 
         <CheckBox
             android:id="@+id/isDone"
@@ -39,24 +29,23 @@
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Görev Başlığı"
-            android:textSize="18sp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/editBtn"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/quicksand_variable_font_wght"
+            android:text="Todo"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/isDone"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.65" />
+            app:layout_constraintWidth_percent="0.60" />
 
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tarih"
+            android:text="Date"
             android:textColor="#888888"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+            app:layout_constraintStart_toStartOf="@+id/textViewTitle" />
 
         <ImageButton
             android:id="@+id/garbageBtn"
@@ -71,28 +60,44 @@
             android:id="@+id/editBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toStartOf="@+id/garbageBtn"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/edit"
             android:background="@color/white"
             />
 
-
-        <!-- 2. Category etiketi -->
+        <!--  Category etiketi -->
         <TextView
             android:id="@+id/textViewCategory"
-            android:layout_width="65dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textStyle="italic"
+            android:textSize="15sp"
+            android:fontFamily="@font/quicksand_variable_font_wght"
             android:padding="6dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/bg_category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/garbageBtn"
             />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipPriority"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="HIGH"
+            android:fontFamily="@font/quicksand_variable_font_wght"
+            android:textColor="?attr/colorOnSecondary"
+            android:textAlignment="center"
+            app:chipCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCategory"
+            android:layout_marginTop="2dp"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
