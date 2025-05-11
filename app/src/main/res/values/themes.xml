@@ -17,4 +17,11 @@
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:statusBarColor">@color/white</item>
     </style>
+
+    <!-- launcher -->
+    <style name="Theme.Todo_List.NoActionBar" parent="Theme.Todo_List">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>
