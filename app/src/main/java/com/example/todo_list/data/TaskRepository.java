@@ -28,6 +28,10 @@ public class TaskRepository {
         TaskDatabase.databaseWriteExecutor.execute( () -> taskDao.update(task));
     }
 
+    public LiveData<List<Task>> getSortedTasks() {
+        return taskDao.getTasksSortedByDateAndPriority();
+    }
+
 }
 
 

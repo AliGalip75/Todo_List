@@ -1,32 +1,76 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="25dp"
-    android:gravity="center">
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:padding="16dp"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/newTaskEdit"
-        android:layout_width="0dp"
+    <!-- 1. satır: görev metni + buton -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="Enter Todo"
-        android:imeOptions="actionDone"
-        android:background="@drawable/rounded_edittext"
-        android:padding="12dp"
-        android:inputType="textMultiLine"
-        android:maxLines="5"
-        android:scrollbars="vertical"
-        android:overScrollMode="always"
-        android:gravity="top|start" />
+        android:gravity="center_vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/newTaskEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Enter Todo"
+            android:background="@drawable/rounded_edittext"
+            android:padding="12dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:backgroundTint="@android:color/transparent"
+            android:textColor="?attr/colorOnBackground"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- 2. satır: Öncelik -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cornerRadius="20dp"
-        android:text="Save"
-        android:backgroundTint="@android:color/transparent"
-        android:textColor="?attr/colorOnBackground"/>
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Öncelik"
+            android:layout_marginEnd="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerPriority"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- 3. satır: Kategori -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori"
+            android:layout_marginEnd="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

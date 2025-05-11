@@ -1,12 +1,19 @@
 package com.example.todo_list.ui.home;
 
+import static com.example.todo_list.data.Priority.HIGH;
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.todo_list.R;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
 import java.util.ArrayList;
@@ -89,6 +96,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         holder.binding.editBtn.setOnClickListener(v -> {
             editListener.onTaskEdit(current);
         });
+
+        // Önceliğe göre renk seç
+        @ColorInt int color;
+        switch (current.getPriority()) {
+            case HIGH:
+                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.error);
+                break;
+            case MEDIUM:
+                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.medium);
+                break;
+            default:
+                color = ContextCompat.getColor(holder.itemView.getContext(), R.color.low);
+                break;
+        }
+        // Dik şeridin arka plan rengini ayarla
+        holder.binding.viewPriority.setBackgroundColor(color);
+        holder.binding.textViewCategory.setText(current.getCategory());
 
     }
 

@@ -1,8 +1,10 @@
 package com.example.todo_list.data;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 @Entity(tableName = "task_table")
 public class Task {
@@ -11,9 +13,17 @@ public class Task {
     private String title;
     private String date;
     private Boolean isDone;
+
+    @ColumnInfo(name = "priority")
     private Priority priority;
+    @TypeConverters(Converters.class) // ekle
+    @ColumnInfo(name = "category")    // isteğe bağlı ama açık olması iyi
     private String category;
 
+    public Task() {
+    }
+
+    @Ignore
     public Task(String title, String date, Boolean isDone) {
         this.title = title;
         this.date = date;
@@ -22,7 +32,17 @@ public class Task {
         this.category = "General";
     }
 
+    @Ignore
+    public Task(String title, String date, boolean isDone, Priority priority, String category) {
+        this.title = title;
+        this.date = date;
+        this.isDone = isDone;
+        this.priority = priority;
+        this.category = category;
+    }
+
     // Tam tüm alanları kapsayan constructor
+    @Ignore
     public Task(int id, String title, boolean isDone,
                 Priority priority, String category) {
         this.id = id;

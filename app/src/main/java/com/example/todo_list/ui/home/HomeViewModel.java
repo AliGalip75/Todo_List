@@ -12,8 +12,9 @@ import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private TaskRepository repository;
+    private final TaskRepository repository;
     private LiveData<List<Task>> allTasks;
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
         repository = new TaskRepository(application);
@@ -21,7 +22,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Task>> getAllTasks() {
-        allTasks = repository.getAllTasks();
+        allTasks = repository.getSortedTasks();
         return allTasks;
     }
 

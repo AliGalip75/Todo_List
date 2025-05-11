@@ -10,13 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
+
+import com.example.todo_list.data.Priority;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.BottomSheetLayoutBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -71,17 +75,51 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstantState){
         super.onViewCreated(view, savedInstantState);
 
+
+        // Spinner’lar
+        Spinner prioSp = binding.spinnerPriority;
+        Spinner catSp  = binding.spinnerCategory;
+
+        // Öncelik enum’larını göster
+        prioSp.setAdapter(new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                Priority.values()
+        ));
+
+        // Kategori listesini belirle
+        String[] categories = {"General", "Work", "Personal"};
+        catSp.setAdapter(new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                categories
+        ));
+
+
         // Kaydet butonuna tıklanabilirlik
         binding.addTaskButton.setOnClickListener(v -> {
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            String selectedDate = sharedPreferences.getString("selectedDate", "");
             String title = binding.newTaskEdit.getText().toString().trim();
-            if (!title.isEmpty()) {
-                Task task = new Task(title, selectedDate, false);
-                calendarViewModel.insert(task);
-                Toast.makeText(getContext(), "Todo added", Toast.LENGTH_SHORT).show();
-                dismiss();  // BottomSheet'i kapat
+            if (title.isEmpty()) {
+                binding.newTaskEdit.setError("Lütfen görev girin");
+                return;
             }
+
+            // Tarih bilgisini alıyorsan
+            SharedPreferences sp = requireContext()
+                    .getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String selectedDate = sp.getString("selectedDate", "");
+
+            // Spinner’dan seçimi al
+            Priority selPrio = (Priority) prioSp.getSelectedItem();
+            String selCat   = (String) catSp.getSelectedItem();
+
+            // Önce başlık–tarih–durum ile örnekle
+            Task task = new Task(title, selectedDate, false, selPrio, selCat);
+
+            // Sonra ekle
+            calendarViewModel.insert(task);
+            Toast.makeText(getContext(), "Todo added", Toast.LENGTH_SHORT).show();
+            dismiss();
         });
     }
 

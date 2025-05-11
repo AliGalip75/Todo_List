@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
 
     <color name="error">#B00020</color>
+    <color name="high">#ee0224</color>
+    <color name="medium">#ffad00</color>
+    <color name="low">#00ff76</color>
     <color name="white">#FFFFFFFF</color>
     <color name="selected">#FF000000</color>
     <color name="unselected">#AFAAAA</color>

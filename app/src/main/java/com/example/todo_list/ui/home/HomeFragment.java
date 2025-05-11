@@ -49,8 +49,8 @@ public class HomeFragment extends Fragment {
         // Haftanın gününü al (0=Pazartesi, 6=Pazar)
         int currentDayOfWeek = LocalDate.now().getDayOfWeek().getValue() - 1; // Java'da Pazartesi=1, Pazar=7
         if (currentDayOfWeek < 0) currentDayOfWeek = 6; // Pazar için düzeltme
-
         int finalCurrentDayOfWeek = currentDayOfWeek;
+
         TaskAdapter adapter = new TaskAdapter(
                 task -> {
                     if (!task.getDone()) {
