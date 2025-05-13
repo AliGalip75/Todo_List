@@ -7,11 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CalendarView;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.todo_list.R;
 import com.example.todo_list.databinding.FragmentCalendarBinding;
 
 import java.time.LocalDate;
@@ -48,6 +54,10 @@ public class CalendarFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+
+        ImageView pulse = view.findViewById(R.id.pulseCircle);
+        Animation pulseAnim = AnimationUtils.loadAnimation(getContext(), R.anim.pulse);
+        pulse.startAnimation(pulseAnim);
 
         binding.calendarView.setMinDate(System.currentTimeMillis() - 1000);
         

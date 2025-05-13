@@ -19,4 +19,65 @@
         android:layout_marginTop="20dp"
         tools:ignore="Autofill,LabelFor" />
 
+    <TextView
+        android:id="@+id/spinnerCategoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:popupBackground="@drawable/spinner_dropdown_background"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitle"
+        app:layout_constraintStart_toEndOf="@id/spinnerCategoryText"/>
+
+    <TextView
+        android:id="@+id/spinnerPriorityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Priority"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategoryText"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerPriority"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="20dp"
+        android:popupBackground="@drawable/spinner_dropdown_background"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintStart_toEndOf="@id/spinnerPriorityText"/>
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:focusable="false"
+        android:textSize="12sp"
+        android:hint="Select Date"
+        android:inputType="none"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextTaskTitle"
+        app:layout_constraintWidth_percent="0.28" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

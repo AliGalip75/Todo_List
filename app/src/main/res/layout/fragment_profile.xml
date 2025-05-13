@@ -127,7 +127,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Weekly task completion statistics"
+                android:text="Weekly Task Completion Statistics"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/quicksand_variable_font_wght"

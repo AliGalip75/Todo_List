@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.Todo_List" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="android:colorBackground">@color/background</item>

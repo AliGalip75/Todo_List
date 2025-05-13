@@ -37,19 +37,36 @@
         app:layout_constraintVertical_bias="0.748" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="25dp"
-        android:contentDescription="TodoAdd"
-        app:backgroundTint="?attr/colorSecondary"
-        app:tint="?attr/colorOnSecondary"
-        android:src="@drawable/add_circle"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="30dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Dalgalar -->
+        <ImageView
+            android:id="@+id/pulseCircle"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/pulse_circle"
+            android:visibility="visible" />
+
+        <!-- FAB butonun kendisi -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="TodoAdd"
+            android:src="@drawable/add_circle"
+            app:backgroundTint="?attr/colorSecondary"
+            app:maxImageSize="30dp"
+            app:tint="?attr/colorOnSecondary" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,9 +30,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:fontFamily="@font/quicksand_variable_font_wght"
+            android:layout_marginBottom="72dp"
             android:text="Todo"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDate"
             app:layout_constraintStart_toEndOf="@+id/isDone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.60" />
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date"
+            android:fontFamily="@font/quicksand_variable_font_wght"
             android:textColor="#888888"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,13 +53,15 @@
             android:id="@+id/garbageBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/garbage_svg"
+            android:src="@drawable/delete"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
             android:id="@+id/editBtn"
+            android:scaleType="centerInside"
+
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
@@ -92,7 +96,6 @@
             android:textColor="?attr/colorOnSecondary"
             android:textAlignment="center"
             app:chipCornerRadius="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCategory"
             android:layout_marginTop="2dp"/>

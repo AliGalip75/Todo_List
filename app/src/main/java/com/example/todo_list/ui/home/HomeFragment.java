@@ -1,6 +1,8 @@
 package com.example.todo_list.ui.home;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,11 +10,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -27,8 +30,9 @@ import com.example.todo_list.databinding.FragmentHomeBinding;
 import com.example.todo_list.ui.profile.ProfileHelper;
 import com.example.todo_list.ui.profile.ProfileViewModel;
 import com.google.android.material.snackbar.Snackbar;
-
+import com.example.todo_list.data.Priority;
 import java.time.LocalDate;
+import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
@@ -113,62 +117,110 @@ public class HomeFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_update_task, null);
 
+        Spinner spinnerCategory = dialogView.findViewById(R.id.spinnerCategory);
+        Spinner spinnerPriority = dialogView.findViewById(R.id.spinnerPriority);
+        EditText editTextDate = dialogView.findViewById(R.id.editTextDate);
         EditText editText = dialogView.findViewById(R.id.editTextTaskTitle);
         editText.setText(taskToUpdate.getTitle());
 
+        // ===== Builder Setup =====
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Update Task");
         builder.setView(dialogView);
-
-        builder.setPositiveButton("Save", (dialog, which) -> {
-            String updatedText = editText.getText().toString().trim();
-            if (!updatedText.isEmpty()) {
-                taskToUpdate.setTitle(updatedText);
-                homeViewModel.updateTask(taskToUpdate);
-                Snackbar snackbar = Snackbar.make(binding.getRoot(), "Todo Updated", Snackbar.LENGTH_SHORT);
-                View snackbarView = snackbar.getView();
-                snackbar.setTextColor(Color.WHITE);
-
-                TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-                textView.setTextSize(20); // sp cinsinden
-                textView.setTypeface(ResourcesCompat.getFont(context, R.font.quicksand_variable_font_wght));
-
-                // Yazı kadar genişlik ve ortalama için:
-                ViewGroup.LayoutParams params = snackbarView.getLayoutParams();
-                if (params instanceof FrameLayout.LayoutParams) {
-                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) params;
-
-                    // Konum: alt-orta
-                    layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-
-                    // Genişliği WRAP_CONTENT yap
-                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-                    snackbarView.setLayoutParams(layoutParams);
-                }
-
-                // Kenarlardan biraz boşluk olsun diye padding ver
-                snackbarView.setPadding(24, 16, 24, 16);
-
-                // İsteğe bağlı: köşe yumuşatma
-                snackbarView.setBackground(
-                        ContextCompat.getDrawable(binding.getRoot().getContext(), R.drawable.bg_snackbar_rounded)
-                );
-
-                snackbar.show();
-            }
-        });
-
+        builder.setPositiveButton("Save", null);
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
+        // ===== Dialog Setup =====
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_corner);
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setTextColor(ContextCompat.getColor(context, R.color.on_background));  // Tema rengini kullan
-
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
                 .setTextColor(ContextCompat.getColor(context, R.color.gray));
+
+        // Save butonunun davranışı
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String updatedText = editText.getText().toString().trim();
+            updatedText = updatedText.substring(0,1).toUpperCase() + updatedText.substring(1);
+            String updatedDate = editTextDate.getText().toString().trim();
+            Priority updatedPriority = (Priority) spinnerPriority.getSelectedItem();
+            String updatedCategory = spinnerCategory.getSelectedItem().toString();
+
+            if (updatedText.isEmpty()) {
+                editText.setError("This field is required");
+                return;
+            }
+
+            if (updatedDate.isEmpty()) {
+                editTextDate.setError("This field is required");
+                return;
+            }
+
+            taskToUpdate.setTitle(updatedText);
+            taskToUpdate.setDate(updatedDate);
+            taskToUpdate.setPriority(updatedPriority);
+            taskToUpdate.setCategory(updatedCategory);
+
+            homeViewModel.updateTask(taskToUpdate);
+
+            Snackbar snackbar = Snackbar.make(binding.getRoot(), "Todo Updated", Snackbar.LENGTH_SHORT);
+            View snackbarView = snackbar.getView();
+            snackbar.setTextColor(Color.WHITE);
+
+            TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+            textView.setTextSize(20);
+            textView.setTypeface(ResourcesCompat.getFont(context, R.font.quicksand_variable_font_wght));
+
+            ViewGroup.LayoutParams params = snackbarView.getLayoutParams();
+            if (params instanceof FrameLayout.LayoutParams) {
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) params;
+                layoutParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                snackbarView.setLayoutParams(layoutParams);
+            }
+
+            snackbarView.setPadding(24, 16, 24, 16);
+            snackbarView.setBackground(ContextCompat.getDrawable(binding.getRoot().getContext(), R.drawable.bg_snackbar_rounded));
+            snackbar.show();
+
+            dialog.dismiss(); // Tüm işlemler bittiyse dialog'u kapat
+        });
+
+
+        // ===== Takvim seçimi =====
+        Calendar calendar = Calendar.getInstance();
+
+        editTextDate.setOnClickListener(v -> {
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, selectedYear, selectedMonth, selectedDay) -> {
+                // Tarihi yazıya çevir
+                @SuppressLint("DefaultLocale")
+                String formattedDate = selectedYear + "-" + String.format("%02d", selectedMonth + 1) + "-" + String.format("%02d", selectedDay);
+                editTextDate.setText(formattedDate);
+            }, year, month, day);
+
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.show();
+        });
+
+        // ===== Priority ve Category seçimi =====
+
+
+        // Priority Spinner (Enum kullanıyorsan)
+        ArrayAdapter<Priority> priorityAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_padding, Priority.values());
+        spinnerPriority.setAdapter(priorityAdapter);
+        spinnerPriority.setSelection(priorityAdapter.getPosition(taskToUpdate.getPriority()));
+
+        // Category Spinner
+        String[] categories = {"General", "Work", "Personal"};
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_padding, categories);
+        spinnerCategory.setAdapter(categoryAdapter);
+        spinnerCategory.setSelection(categoryAdapter.getPosition(taskToUpdate.getCategory()));
+
     }
 
     @Override

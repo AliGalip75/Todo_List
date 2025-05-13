@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -23,7 +22,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.OnApplyWindowInsetsListener;
-
 import com.example.todo_list.R;
 import com.example.todo_list.data.Priority;
 import com.example.todo_list.data.Task;
@@ -109,9 +107,10 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
         binding.addTaskButton.setOnClickListener(v -> {
             String title = binding.newTaskEdit.getText().toString().trim();
             if (title.isEmpty()) {
-                binding.newTaskEdit.setError("Lütfen görev girin");
+                binding.newTaskEdit.setError("This field is required");
                 return;
             }
+            title = title.substring(0, 1).toUpperCase() + title.substring(1);
 
             // Tarih bilgisini al
             SharedPreferences sp = requireContext()
@@ -144,18 +143,20 @@ public class TaskBottomSheetFragment extends BottomSheetDialogFragment {
             Priority selPrio = (Priority) prioSp.getSelectedItem();
             String selCat   = (String) catSp.getSelectedItem();
 
-            // Önce başlık–tarih–durum ile örnekle
+            // Önce başlık–tarih–durum ile obj oluştur
             Task task = new Task(title, selectedDate, false, selPrio, selCat);
 
             // Sonra ekle
             calendarViewModel.insert(task);
 
+
+            // ===== SnackBar =====
             Snackbar snackbar = Snackbar.make(requireActivity().findViewById(android.R.id.content), "Todo Added", Snackbar.LENGTH_SHORT);
             View snackbarView = snackbar.getView();
             snackbar.setTextColor(Color.WHITE);
 
             TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-            textView.setTextSize(20); // sp cinsinden
+            textView.setTextSize(20);
             textView.setTypeface(ResourcesCompat.getFont(binding.getRoot().getContext(), R.font.quicksand_variable_font_wght));
 
             // Yazı kadar genişlik ve ortalama için:
