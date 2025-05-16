@@ -21,7 +21,7 @@ public abstract class TaskDatabase extends RoomDatabase {
     public abstract TaskDao taskDao();
 
     public static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(2);
+            Executors.newFixedThreadPool(4);
 
     public static synchronized TaskDatabase getInstance(final Context context) {
         if (INSTANCE == null) {

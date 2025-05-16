@@ -155,7 +155,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 chip.setChipBackgroundColorResource(R.color.low);
                 break;
         }
-        // Dik şeridin arka plan rengini ayarla
+
         holder.binding.textViewCategory.setText(current.getCategory());
 
         MaterialCardView card = holder.itemView.findViewById(R.id.card);

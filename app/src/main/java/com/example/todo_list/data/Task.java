@@ -16,8 +16,8 @@ public class Task {
 
     @ColumnInfo(name = "priority")
     private Priority priority;
-    @TypeConverters(Converters.class) // ekle
-    @ColumnInfo(name = "category")    // isteğe bağlı ama açık olması iyi
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "category")
     private String category;
 
     public Task() {

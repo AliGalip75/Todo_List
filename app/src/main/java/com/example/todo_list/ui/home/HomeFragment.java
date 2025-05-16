@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+            public boolean onMove(@NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
@@ -124,14 +124,10 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 // Kaydırma yok
             }
 
-            @Override
-            public boolean isLongPressDragEnabled() {
-                return true;
-            }
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
