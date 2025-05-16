@@ -17,6 +17,7 @@ Bu, Java kullanılarak geliştirilmiş sade bir Android ToDo List uygulamasıdı
 - Görev ekleme
 - Görev silme
 - Görev güncelleme
+- Görevin Sırasını Değiştirme
 - Tamamlanan görevleri işaretleme
 - İstatistikleri görme
 - Modern ve sade tasarım
