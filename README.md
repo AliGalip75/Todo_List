@@ -33,6 +33,6 @@ Bu, Java kullanılarak geliştirilmiş sade bir Android ToDo List uygulamasıdı
 
 ## 📦 Kurulum
 
-1. Bu projeyi klonlayın:
+   ### Android Studio -> Clone Repository -> URL
    ```bash
    git clone https://github.com/AliGalip75/Todo_List.git
