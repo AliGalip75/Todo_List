@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,6 +87,11 @@ public class CalendarFragment extends Fragment {
                 editor.apply();
             }
         });
+
+        // Text'e animasyon ekle
+        TextView text = binding.textCalendar;
+        Animation textAnim = AnimationUtils.loadAnimation(getContext(), R.anim.text_appear);
+        text.startAnimation(textAnim);
 
     }
 

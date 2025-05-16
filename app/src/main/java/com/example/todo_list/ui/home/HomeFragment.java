@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_list.R;
@@ -33,6 +34,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.example.todo_list.data.Priority;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -103,6 +106,36 @@ public class HomeFragment extends Fragment {
                 homeText.setVisibility(View.VISIBLE);
             }
         });
+
+        // 🔽 SÜRÜKLEMEYİ AKTİF ET
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+
+                List<Task> currentTasks = adapter.getTasks();
+                Collections.swap(currentTasks, fromPosition, toPosition);
+                adapter.notifyItemMoved(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // Kaydırma yok
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
 

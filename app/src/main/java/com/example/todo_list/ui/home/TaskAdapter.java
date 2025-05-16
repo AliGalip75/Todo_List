@@ -1,11 +1,15 @@
 package com.example.todo_list.ui.home;
 
+import static android.webkit.WebSettings.RenderPriority.HIGH;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.todo_list.R;
 import com.example.todo_list.data.Task;
 import com.example.todo_list.databinding.ItemTaskBinding;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -123,6 +128,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
         });
 
+        holder.itemView.setOnClickListener(v -> {
+            Animation clickAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.card_click);
+            v.startAnimation(clickAnim);
+        });
+
 
         // RecyclerView'daki todoların update butonu için listener
         holder.binding.editBtn.setOnClickListener(v -> {
@@ -148,6 +158,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         // Dik şeridin arka plan rengini ayarla
         holder.binding.textViewCategory.setText(current.getCategory());
 
+        MaterialCardView card = holder.itemView.findViewById(R.id.card);
+
+        switch (current.getPriority()) {
+            case High:
+                card.setStrokeColor(ContextCompat.getColor(holder.binding.getRoot().getContext(), R.color.high));
+                break;
+            case Medium:
+                card.setStrokeColor(ContextCompat.getColor(holder.binding.getRoot().getContext(), R.color.medium));
+                break;
+            case Low:
+                card.setStrokeColor(ContextCompat.getColor(holder.binding.getRoot().getContext(), R.color.low));
+                break;
+        }
+
+
     }
 
     @Override
@@ -159,6 +184,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged(); // liste değişince UI'ı güncelle
+    }
+
+    public List<Task> getTasks() {
+        return this.tasks;
     }
 
 }
