@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Task.class}, version = 3, exportSchema = false)
+@Database(entities = {Task.class}, version = 4, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class TaskDatabase extends RoomDatabase {
     private static volatile TaskDatabase INSTANCE;
@@ -22,17 +22,6 @@ public abstract class TaskDatabase extends RoomDatabase {
 
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(2);
-
-    /** 2 → 3 sürüm geçişi: priority ve category sütunlarını ekler */
-    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase db) {
-            // priority ve category sütunlarını nullable, default tanımsız olarak ekle
-            db.execSQL("ALTER TABLE task_table ADD COLUMN priority TEXT");
-            db.execSQL("ALTER TABLE task_table ADD COLUMN category TEXT");
-        }
-    };
-
 
     public static synchronized TaskDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
@@ -43,8 +32,7 @@ public abstract class TaskDatabase extends RoomDatabase {
                                     TaskDatabase.class,
                                     "task_database"
                             )
-                            // fallbackToDestructiveMigration();
-                            .addMigrations(MIGRATION_2_3)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

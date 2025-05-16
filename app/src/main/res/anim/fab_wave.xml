@@ -6,4 +6,4 @@
     android:toXScale="2.0"
     android:toYScale="2.0"
     android:repeatCount="0"
-    android:interpolator="@android:anim/accelerate_interpolator" />
+    android:interpolator="@android:anim/decelerate_interpolator" />

@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // 🔽 SÜRÜKLEMEYİ AKTİF ET
+        // SÜRÜKLEMEYİ AKTİF ET
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
 
