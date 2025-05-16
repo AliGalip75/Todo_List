@@ -6,8 +6,9 @@ Bu, Java kullanılarak geliştirilmiş sade bir Android ToDo List uygulamasıdı
 
 ## 🖼️ Uygulama Görselleri
 
-![Ana Ekran](screenshots/main_screen.png)
-![Görev Ekleme](screenshots/add_task.png)
+![Ana Ekran](screenshots/home.png)
+![Görev Ekleme](screenshots/calendar.png)
+![İstatistik_Görme](screenshots/profile.png)
 
 ---
 
