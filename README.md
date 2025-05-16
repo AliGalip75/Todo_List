@@ -35,4 +35,4 @@ Bu, Java kullanılarak geliştirilmiş sade bir Android ToDo List uygulamasıdı
 
 1. Bu projeyi klonlayın:
    ```bash
-   git clone https://github.com/kullaniciadi/todolist-android.git
+   git clone https://github.com/AliGalip75/Todo_List.git
